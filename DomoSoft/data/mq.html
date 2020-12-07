@@ -1,0 +1,130 @@
+<html><head><title>DomoSoft: Impostazioni</title>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+                   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+                   <script>
+
+                   $(document).ready(function(){
+
+
+
+
+                      var ten = setTimeout(rel1, 1500);
+                       function rel1() {
+                           $.get('/mqttconf/status', function(data){
+                             if (data==1) {
+                               $('#al1').attr('class','btn bg-success text-white');
+                               $('#al2').attr('class','btn bg-primary text-white');
+
+                             }else{
+                               $('#al2').attr('class','btn bg-success text-white');
+                               $('#al1').attr('class','btn bg-primary text-white');
+                             }
+                           });
+                       }
+                      var ten2 = setTimeout(rel2, 1500);
+                       function rel2() {
+                           $.get('/info/devname', function(data){
+                               $('#p1').text(data);
+                               $('#p2').text(data);
+                           });
+                       }
+
+                   });
+                   </script>
+
+                   
+
+
+
+                   <body class=''>
+
+  
+  <div id='page-wrap' style="margin-bottom:0" class='jumbotron'>
+
+  <h2>DomoSoft 4</h2>
+  
+  </div>
+  
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+<a id="p2" class="navbar-brand" href="/">Caricamento</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/settings">Generale</a>
+      </li>
+        
+    </ul>
+	<ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/network">WiFi</a>
+      </li>
+        
+    </ul>
+	<ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/time">Orologio</a>
+      </li>
+        
+    </ul>
+
+	
+	<ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/mqttconf">Mqtt</a>
+      </li>
+        
+    </ul>
+
+
+	<ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/security">Sicurezza</a>
+      </li>
+        
+    </ul>
+	<ul class="navbar-nav ">
+      <li class="nav-item">
+        <a class="nav-link" href="/info">Info</a>
+      </li>
+        
+    </ul>
+  </div>  
+</nav>
+  <br>
+		 <div class=' container-fluid'>
+  
+  
+    <div class="clearfix">
+				  
+				  <h3>Configura MQTT</h3><br> <div class="btn-group float-right"> <a href='mqttstat?q=on' id='al1' class='btn bg-primary text-white'>ON</a><a href='mqttstat?q=off' id='al2' class='btn bg-primary text-white'>OFF</a></div>
+                    <p>Il protocollo MQTT permette la facile comunicazione tra più device nella propria abitazione.<br>Per iniziare inserisci l'indirizzo IP del server, nome utente e password.</p><br>
+                   
+                   <form class='form-group' action='MQhost' method='get'><p>Indirizzo IP Server</p><input name='iphost' class='form-control' length='15' type='text' placeholder='Es: 10.0.1.11'><br><input type='submit' class='btn bg-primary text-white float-right' value="Salva"></input></form><br>
+
+                   <form class='form-group' action='MQuser' method='get'><p>Nome Utente</p><input name='username'  class='form-control' type='text'><br><p>Password</p><input name='pwd'  class='form-control' type='password'><br><input type='submit' class='btn bg-primary text-white float-right' value="Salva"></input></form>
+           
+                  
+                   <h3>Discovery</h3><p>Il sistema MQTT Discovery permette la facile registrazione del dispositivo nei sistemi domotici come Hassio e OpenHab.<br>Il sistema pubblica sul server MQTT una stringa di configurazione composta da nome dispositivo e tutti i topic di comando e di stato.<br>Per iniziare inserisci il prefisso scelto durante la configurazione del server domotico (default: homeassistant).<br>Se premi registra senza inserire i dati Domosoft userà i dati precedentemente inseriti.</p>
+                   <form class='form-group' action='/discovery/delete' method='get'><input type='submit' class='btn bg-danger text-white float-right' value="De-registra"></input></form><br>
+				   
+				   <form class='form-group' action='/discovery' method='get'>
+                    <p>Prefisso</p> <input name='prefix' class='form-control' length='15' type='text' placeholder='homeassistant'><br>
+                   
+                     <input type='submit' class='btn bg-primary text-white float-right' value="Registra"></input>
+                    </form><br><br>
+                    
+ 
+					  <br>
+					
+					  <div class='card bg-dark text-white'><div class='card-body'><h5>Devname:</h5><a id='p1'>
+                      </a></div></div>
+                       
+					<br>
